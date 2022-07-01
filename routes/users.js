@@ -3,11 +3,15 @@ var router = express.Router();
 const User = require('../models/user');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
-const bcrypt = require("bcryptjs");
+const bcrypt = require('bcryptjs');
 
 /* GET users listing. */
 router.get('/sign-up', function (req, res, next) {
-  res.render('sign-up-form', {title: 'sign up'});
+  if (!req.isAuthenticated()) {
+    res.render('sign-up-form', { title: 'sign up' });
+  } else {
+    res.redirect('/');
+  }
 });
 
 router.post('/sign-up', function (req, res, next) {
@@ -21,32 +25,38 @@ router.post('/sign-up', function (req, res, next) {
       if (err) {
         return next(err);
       }
-      res.redirect('/messages');
+      res.redirect('/users/log-in');
     });
   });
 });
 
-router.get(
-  '/log-in',
-  function (req, res, next) {
-      res.render('log-in', {title: 'log in'});
+router.get('/log-in', function (req, res, next) {
+  if (!req.isAuthenticated()) {
+    res.render('log-in', { title: 'log in', user: undefined });
+  } else {
+    res.redirect('/');
   }
-);
+});
 
 router.post(
   '/log-in',
+  function (req, res, next) {
+    res.clearCookie('verified');
+    next();
+  },
   passport.authenticate('local', {
     successRedirect: '/messages',
     failureRedirect: './log-in',
-  })
+  }),
 );
 
-router.get("/log-out", (req, res) => {
+router.get('/log-out', (req, res) => {
   req.logout(function (err) {
     if (err) {
       return next(err);
     }
-    res.redirect("/");
+    res.clearCookie('verified');
+    res.redirect('/');
   });
 });
 

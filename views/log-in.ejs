@@ -7,6 +7,8 @@
   <link rel='stylesheet' href='/stylesheets/style.css' />
   <title><%= title %></title>
 </head>
+
+<%- include('nav', {user: user}) %>
 <body>    
     <h1>log in</h1>
     <form action="./log-in" method="POST">
