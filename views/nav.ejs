@@ -2,13 +2,12 @@
   <ul>
     <% if (user) { %>
       <li><a class="active" href="/">Home</a></li>
-      <li><a href="/messages">Members</a></li>
-      <!-- <li><a href="/messages/join">Verify</a></li> -->
+      <li><a href="/clubhouse">Clubhouse</a></li>
+      <li style="float:right"><a href="#"><%= user.username %></a></li>
       <li style="float:right"><a href="/users/log-out">Log Out</a></li>
     <% } else { %>
       <li><a class="active" href="/">Home</a></li>
-      <li><a href="/messages">Members</a></li>
-      <!-- <li><a href="/messages/join">Verify</a></li> -->
+      <li><a href="/clubhouse">Members</a></li>
       <li style="float:right"><a href="/users/sign-up">Sign Up</a></li>
       <li style="float:right"><a href="/users/log-in">Log In</a></li>
     <% } %>

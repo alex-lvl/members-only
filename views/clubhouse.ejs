@@ -9,15 +9,14 @@
 
 <%- include('nav', {user: user}) %>
 <body>    
-  <% if (user && verified) {%>
-    <h1>WELCOME <%= user.username %> to the message board verified</h1>
-    <a href="/users/log-out">LOG OUT</a>
-  <% } else if (user) {%>
-    <h1>WELCOME <%= user.username %>, join the club by entering the secret passcode.</h1>
-    <a href="/messages/join">join club</a>
-    <a href="/users/log-out">LOG OUT</a>
+  <% if (user && verified) { %>
+    <h1>welcome to the club <%= user.firstName %> <%= user.lastName %></h1>
+    <a href="/clubhouse/form">Create a new message</a>
+  <% } else if (user) { %>
+    <h1>welcome <%= user.firstName %> <%= user.lastName %>, join the club by entering the secret passcode.</h1>
+    <a href="/clubhouse/join">join club</a>
   <% } else { %>
-    <h1>please log in to access message board</h1>
-  <%}%>
+    <h1>please log in to access clubhouse</h1>
+  <% } %>
 </body>
 </html>

@@ -10,17 +10,15 @@
 <%- include('nav', {user: user}) %>
 <body>    
   <% if (user) {%>
-    <h1>WELCOME <%= user.username %>, type in the secret passcode to join the club</h1>
+    <h1>Welcome <%= user.firstName %> <%= user.lastName %>, type in the secret passcode to join the club</h1>
     <form action="./join" method="POST">
       <label for="passcode">Pass Code:</label>
       <input name="passcode" placeholder="enter the passcode" type="text" />
       <button>Enter</button>
     </form>
-    <a href="/users/log-out">LOG OUT</a>
+    <p>Hint: the passcode is: 123</p>
   <% } else { %>
     <h1>please log in or sign up to join the club</h1>
-    <a href="/users/log-in">Log-In</a>
-    <a href="/users/sign-up">Sign-Up</a>
   <%}%>
 </body>
 </html>

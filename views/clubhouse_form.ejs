@@ -9,16 +9,14 @@
 </head>
 
 <%- include('nav', {user: user}) %>
-<body>    
-  <% if (user) {%>
-    <h1><%= title %></h1>
-    <h1>Welcome back <%= user.firstName %> <%= user.lastName %></h1>
-  <% } else { %>
-    <h1><%= title %></h1>
-    <p>Create an account or log in to access <%= title %></p>
-    <a href="/users/log-in">Log-In</a>
-    <a href="/users/sign-up">Sign-Up</a>
-  <%}%>
-
+<body>
+  <h1><%= title %></h1>
+  <form action="" method="POST">
+    <label for="message">Message</label>
+    <textarea name="message" placeholder="type a new message" rows="3">
+    </textarea>
+    <input name="author" type="hidden" value="<%= user._id %>"/>
+    <button>Submit</button>
+  </form>
 </body>
 </html>
