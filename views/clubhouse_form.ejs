@@ -10,13 +10,15 @@
 
 <%- include('nav', {user: user}) %>
 <body>
-  <h1><%= title %></h1>
-  <form action="" method="POST">
-    <label for="message">Message</label>
-    <textarea name="message" placeholder="type a new message" rows="3">
-    </textarea>
-    <input name="author" type="hidden" value="<%= user._id %>"/>
-    <button>Submit</button>
-  </form>
+  <section>
+    <h1><%= title %></h1>
+    <form action="" method="POST">
+      <label for="message">Message</label>
+      <textarea name="message" placeholder="type a new message" rows="3">
+      </textarea>
+      <input name="author" type="hidden" value="<%= user._id %>"/>
+      <button>Submit</button>
+    </form>
+  </section>
 </body>
 </html>

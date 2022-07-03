@@ -18,10 +18,20 @@ exports.clubhouse_feed_get = function (req, res, next) {
     req.isAuthenticated() &&
     JSON.parse(req.cookies.verified) === true
   ) {
-    res.render('clubhouse', {
-      title: 'Club House',
-      user: req.user,
-      verified: JSON.parse(req.cookies.verified),
+    Message.find()
+    .sort({date: -1})
+    .limit(50)
+    .populate('author')
+    .exec(function (err, list_message) {
+      if (err) {
+        return next(err);
+      }
+      res.render('clubhouse', {
+        title: 'Club House',
+        message_list: list_message,
+        user: req.user,
+        verified: JSON.parse(req.cookies.verified),
+      });
     });
   }
 };

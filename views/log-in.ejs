@@ -10,6 +10,7 @@
 
 <%- include('nav', {user: user}) %>
 <body>    
+  <section>
     <h1>log in</h1>
     <form action="./log-in" method="POST">
       <label for="username">Username</label>
@@ -18,5 +19,6 @@
       <input name="password" type="password" />
       <button>Log In</button>
     </form>
+  </section>
 </body>
 </html>

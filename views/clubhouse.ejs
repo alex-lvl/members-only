@@ -1,22 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel='stylesheet' href='/stylesheets/style.css' />
-</head>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+  </head>
 
-<%- include('nav', {user: user}) %>
-<body>    
-  <% if (user && verified) { %>
-    <h1>welcome to the club <%= user.firstName %> <%= user.lastName %></h1>
-    <a href="/clubhouse/form">Create a new message</a>
-  <% } else if (user) { %>
-    <h1>welcome <%= user.firstName %> <%= user.lastName %>, join the club by entering the secret passcode.</h1>
-    <a href="/clubhouse/join">join club</a>
-  <% } else { %>
-    <h1>please log in to access clubhouse</h1>
-  <% } %>
-</body>
+  <%- include('nav', {user: user}) %>
+  <body>
+    <section>
+      <% if (user && verified) { %>
+      <h1>welcome to the club <%= user.firstName %> <%= user.lastName %></h1>
+      <a href="/clubhouse/form">Create a new message</a>
+      <div class="message-container">
+        <% for (let message of message_list) { %>
+        <div class="message">
+          <p class="message-author">
+            <%= message.author.firstName %> <%= message.author.lastName %>
+          </p>
+          <p class="message-date"><%= message.date_formatted %></p>
+          <p class="message-content"><%= message.message %></p>
+        </div>
+        <% } %>
+      </div>
+      <% } else if (user) { %>
+      <h1>
+        welcome <%= user.firstName %> <%= user.lastName %>, join the club by
+        entering the secret passcode.
+      </h1>
+      <a href="/clubhouse/join">join club</a>
+      <% } else { %>
+      <h1>please log in to access clubhouse</h1>
+      <% } %>
+    </section>
+  </body>
 </html>

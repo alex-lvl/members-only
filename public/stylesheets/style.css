@@ -4,6 +4,16 @@ body {
   margin: 0;
 }
 
+section {
+  max-width: 1200px;
+  padding: 20px;
+  margin: 0 auto;
+}
+
+h1 {
+  text-transform: capitalize;
+}
+
 a {
   color: #00B7FF;
 }
@@ -19,11 +29,11 @@ ul {
   top: 0;
 }
 
-li {
+nav li {
   float: left;
 }
 
-li a {
+nav li a {
   display: block;
   color: white;
   text-align: center;
@@ -31,10 +41,43 @@ li a {
   text-decoration: none;
 }
 
-li a:hover:not(.active) {
+nav li a:hover:not(.active) {
   background-color: #111;
 }
 
 .active {
   background-color: #04AA6D;
+}
+
+.message-container {
+  padding: 0;
+  margin-top: 50px;
+}
+
+.message {
+  margin: 10px 0;
+  border: 2px solid rgba(128, 128, 128, 0.179);
+  border-radius: 10px;
+  padding: 10px;
+}
+
+.message-author {
+  margin: 0;
+  text-transform: capitalize;
+  font-weight: bold;
+}
+
+.message-date {
+  margin: 0;
+  color: rgba(99, 99, 99, 0.74);
+}
+
+textarea {
+  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  margin-top: 6px;
+  margin-bottom: 10px;
+  display: block;
 }

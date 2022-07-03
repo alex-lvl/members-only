@@ -9,16 +9,18 @@
 
 <%- include('nav', {user: user}) %>
 <body>    
-  <% if (user) {%>
-    <h1>Welcome <%= user.firstName %> <%= user.lastName %>, type in the secret passcode to join the club</h1>
-    <form action="./join" method="POST">
-      <label for="passcode">Pass Code:</label>
-      <input name="passcode" placeholder="enter the passcode" type="text" />
-      <button>Enter</button>
-    </form>
-    <p>Hint: the passcode is: 123</p>
-  <% } else { %>
-    <h1>please log in or sign up to join the club</h1>
-  <%}%>
+  <section>
+    <% if (user) {%>
+      <h1>Welcome <%= user.firstName %> <%= user.lastName %>, type in the secret passcode to join the club</h1>
+      <form action="./join" method="POST">
+        <label for="passcode">Pass Code:</label>
+        <input name="passcode" placeholder="enter the passcode" type="text" />
+        <button>Enter</button>
+      </form>
+      <p>Hint: the passcode is: 123</p>
+    <% } else { %>
+      <h1>please log in or sign up to join the club</h1>
+    <%}%>
+  </section>
 </body>
 </html>

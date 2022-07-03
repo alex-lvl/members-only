@@ -10,15 +10,31 @@
 
 <%- include('nav', {user: user}) %>
 <body>    
-  <% if (user) {%>
-    <h1><%= title %></h1>
-    <h1>Welcome back <%= user.firstName %> <%= user.lastName %></h1>
-  <% } else { %>
-    <h1><%= title %></h1>
-    <p>Create an account or log in to access <%= title %></p>
-    <a href="/users/log-in">Log-In</a>
-    <a href="/users/sign-up">Sign-Up</a>
-  <%}%>
-
+  <section>
+    <% if (user) {%>
+      <h1><%= title %></h1>
+      <h1>Welcome back <%= user.firstName %> <%= user.lastName %></h1>
+      <p>Task Guide:</p>
+      <ol>
+        <li>Sign up for an account</li>
+        <li>Log In with your newly created account</li>
+        <li>Join the club by entering the secret passcode at the <a href="/clubhouse/join">clubhouse</a> (Hint: 123)</li>
+        <li>Checkout messages from other members in the <a href="/clubhouse">club</a> </li>
+        <li>Post a message in the club to chat with other members</li>
+      </ol>
+    <% } else { %>
+      <h1><%= title %></h1>
+      <p>Task Guide:</p>
+      <ol>
+        <li>Sign up for an account</li>
+        <li>Log In with your newly created account</li>
+        <li>Join the club by entering the secret passcode at the <a href="/clubhouse/join">clubhouse</a> (Hint: 123)</li>
+        <li>Checkout messages from other members in the <a href="/clubhouse">club</a> </li>
+        <li>Post a message in the club to chat with other members</li>
+      </ol>
+      <a href="/users/log-in">Log-In</a>
+      <a href="/users/sign-up">Sign-Up</a>
+    <%}%>
+  </section>
 </body>
 </html>
