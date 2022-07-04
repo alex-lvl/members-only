@@ -10,6 +10,13 @@
 <%- include('nav', {user: user}) %>
 <body>    
   <section>
+    <% if (errors) { %>
+      <ul>
+        <% for (let error of errors) { %>
+        <li><%- error.msg %></li>
+        <% } %>
+      </ul>
+    <% } %>
     <% if (user) {%>
       <h1>Welcome <%= user.firstName %> <%= user.lastName %>, type in the secret passcode to join the club</h1>
       <form action="./join" method="POST">

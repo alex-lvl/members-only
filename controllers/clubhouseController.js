@@ -5,6 +5,14 @@ const mongoose = require('mongoose');
 const Passcode = require('../models/passcode');
 const { body, validationResult } = require('express-validator');
 
+exports.clubhouse_locals = function (req, res, next) {
+  let errors;
+
+  res.locals.errors = errors;
+
+  next();
+};
+
 exports.clubhouse_feed_get = function (req, res, next) {
   if (!req.isAuthenticated()) {
     res.redirect('/users/log-in');
@@ -19,20 +27,20 @@ exports.clubhouse_feed_get = function (req, res, next) {
     JSON.parse(req.cookies.verified) === true
   ) {
     Message.find()
-    .sort({date: -1})
-    .limit(50)
-    .populate('author')
-    .exec(function (err, list_message) {
-      if (err) {
-        return next(err);
-      }
-      res.render('clubhouse', {
-        title: 'Club House',
-        message_list: list_message,
-        user: req.user,
-        verified: JSON.parse(req.cookies.verified),
+      .sort({ date: -1 })
+      .limit(50)
+      .populate('author')
+      .exec(function (err, list_message) {
+        if (err) {
+          return next(err);
+        }
+        res.render('clubhouse', {
+          title: 'Club House',
+          message_list: list_message,
+          user: req.user,
+          verified: JSON.parse(req.cookies.verified),
+        });
       });
-    });
   }
 };
 
@@ -46,26 +54,49 @@ exports.clubhouse_passcode_get = function (req, res, next) {
   }
 };
 
-exports.clubhouse_passcode_post = function (req, res, next) {
-  Passcode.findById('62bbbbf0227ea4608bacd251').exec(function (err, passcode) {
-    if (err) {
-      return next(err);
-    }
-    if (passcode === null) {
-      let err = new Error('Passcode not found');
-      err.status = 404;
-      return next(err);
-    } else if (passcode.passcode === req.body.passcode && req.user) {
-      // const d = new Date();
-      // d.setTime(d.getTime() + (7 * 24 * 60 * 60 * 1000));
-      // let expire = d.toUTCString();
-      res.cookie('verified', true, {
-        expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
+exports.clubhouse_passcode_post = [
+  body('passcode', 'passcode required')
+    .trim()
+    .isLength({ min: 1 })
+    .isNumeric({no_symbols: true})
+    .withMessage('Must Contain Numeric Value')
+    .escape(),
+
+  function (req, res, next) {
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+      res.render('join-club', {
+        title: 'Club House',
+        user: req.user,
+        errors: errors.array(),
       });
-      res.redirect('/clubhouse');
+      return;
+    } else {
+      Passcode.findById('62bbbbf0227ea4608bacd251').exec(function (
+        err,
+        passcode
+      ) {
+        if (err) {
+          return next(err);
+        }
+        if (passcode === null) {
+          let err = new Error('Passcode not found');
+          err.status = 404;
+          return next(err);
+        } else if (passcode.passcode === req.body.passcode && req.user) {
+          // const d = new Date();
+          // d.setTime(d.getTime() + (7 * 24 * 60 * 60 * 1000));
+          // let expire = d.toUTCString();
+          res.cookie('verified', true, {
+            expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
+          });
+          res.redirect('/clubhouse');
+        }
+      });
     }
-  });
-};
+  },
+];
 
 exports.clubhouse_form_get = function (req, res, next) {
   if (!req.isAuthenticated()) {
@@ -85,7 +116,10 @@ exports.clubhouse_form_get = function (req, res, next) {
 };
 
 exports.clubhouse_form_post = [
-  body('message', 'message required').trim().isLength({ min: 1 }).escape(),
+  body('message', 'message required')
+    .trim()
+    .isLength({ min: 1, max: 240 })
+    .escape(),
 
   function (req, res, next) {
     const errors = validationResult(req);
