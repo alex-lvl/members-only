@@ -13,9 +13,12 @@ const User = require('./models/user');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var clubhouseRouter = require('./routes/clubhouse');
+var compression = require('compression');
+var helmet = require('helmet');
 
 require('dotenv').config();
 var app = express();
+app.use(helmet());
 
 const mongoDB = process.env.MONGODB_URL;
 mongoose.connect(mongoDB, { useUnifiedTopology: true, useNewUrlParser: true });
@@ -35,6 +38,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use(compression()); //Compress all routes
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
