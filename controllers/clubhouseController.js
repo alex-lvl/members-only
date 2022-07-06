@@ -15,7 +15,22 @@ exports.clubhouse_locals = function (req, res, next) {
 
 exports.clubhouse_feed_get = function (req, res, next) {
   if (!req.isAuthenticated()) {
-    res.redirect('/users/log-in');
+    // res.redirect('/users/log-in');
+    Message.find()
+    .sort({ date: -1 })
+    .limit(50)
+    // .populate('author')
+    .exec(function (err, list_message) {
+      if (err) {
+        return next(err);
+      }
+      res.render('clubhouse', {
+        title: 'Club House',
+        message_list: list_message,
+        user: req.user,
+        // verified: JSON.parse(req.cookies.verified),
+      });
+    });
   } else if (req.isAuthenticated() && req.cookies.verified === undefined) {
     res.render('clubhouse', {
       title: 'Club House',

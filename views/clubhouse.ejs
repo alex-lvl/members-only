@@ -31,7 +31,16 @@
       </h1>
       <a href="/clubhouse/join">join club</a>
       <% } else { %>
-      <h1>please log in to access clubhouse</h1>
+      <h1>please log in to become a member of the clubhouse</h1>
+      <% for (let message of message_list) { %>
+        <div class="message">
+          <p class="message-author">
+            Anonymous
+          </p>
+          <p class="message-date">DD/MM/YYYY</p>
+          <p class="message-content"><%= message.message %></p>
+        </div>
+        <% } %>
       <% } %>
     </section>
   </body>
