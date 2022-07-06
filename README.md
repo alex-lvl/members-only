@@ -1,14 +1,14 @@
 # Members Only
 
-## Overview 
+### Overview 
 
 A simple authentication app using express/passport.js/node.js
 
-## How it Works
+### How it Works
 
 This project is an exclusive clubhouse where members can write anonymous posts to other users.  Inside the clubhouse, members can see who the author of a post is, but outside they can only see the story and wonder who wrote it.
 
-## Learning Objectives
+### Learning Objectives
 
 - Authentication
 - Local Strategy 
@@ -21,3 +21,7 @@ This project is an exclusive clubhouse where members can write anonymous posts t
 - Sessions
 - bcrypt/password hashing
 - EJS templates
+
+[The Odin Project](https://www.theodinproject.com/lessons/nodejs-members-only)
+
+[Live Demo](https://peaceful-headland-46361.herokuapp.com/)
