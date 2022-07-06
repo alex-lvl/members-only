@@ -1,4 +1,4 @@
-# Menbers Only
+# Members Only
 
 ## Overview 
 
